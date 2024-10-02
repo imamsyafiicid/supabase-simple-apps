@@ -5,14 +5,18 @@ import Home from '../components/Home.vue';
 import Signup from '../components/Signup.vue';
 import ForgotPassword from '../components/ForgotPassword.vue';
 import Profile from '../components/Profile.vue';
+import Callback from '../components/Callback.vue';
+import UploadFile from '../components/UploadFile.vue';
 import { supabase } from '../supabase';
 
 const routes = [
   { path: '/', component: Home },
   { path: '/login', component: Login },
+  { path: '/callback', component: Callback },
   { path: '/signup', component: Signup },
   { path: '/forgot-password', component: ForgotPassword },
   { path: '/profile', component: Profile, meta: { requiresAuth: true } },
+  { path: '/storage', component: UploadFile, meta: { requiresAuth: true } },
 ];
 
 const router = createRouter({

@@ -33,10 +33,13 @@
         Don't have an account? <router-link to="/signup">Sign Up</router-link>
       </p>
       <p>
+        Login with Google <button type="button" class="auth-btn " @click="loginWithGoogle">Login</button>
+      </p>
+      <p>
         <router-link to="/">Home</router-link>
       </p>
       <p>
-        <router-link to="/forgot-password">Forgot Password?</router-link>
+        <!-- <router-link to="/forgot-password">Forgot Password?</router-link> -->
       </p>
     </div>
 
@@ -57,6 +60,19 @@ export default {
     const error = ref('');
     const showPassword = ref(false);
     const router = useRouter();
+
+    const loginWithGoogle = async () => {
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: {
+          redirectTo: `http://localhost:5173/callback?`,
+        },
+      });
+
+      if (error) {
+        console.error('Error logging in with Google:', error.message);
+      }
+    };
 
     const handleLogin = async () => {
       const { user, session, error: loginError } = await supabase.auth.signInWithPassword({
@@ -83,6 +99,7 @@ export default {
       error,
       showPassword,
       togglePasswordVisibility,
+      loginWithGoogle
     };
   },
 };

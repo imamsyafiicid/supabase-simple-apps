@@ -11,6 +11,9 @@
         <button @click="handleLogout" class="logout-btn">Logout</button>
       </div>
     </div>
+    <p>
+      <router-link to="/storage">Storage</router-link>
+    </p>
 
     <form v-if="showEdit" class="edit-form" @submit.prevent="handleUpdateProfile">
       <input
@@ -71,7 +74,6 @@ export default {
 
     const fetchProfile = async () => {
       const { data: userData } = await supabase.auth.getUser();
-      console.log('authUser profile', userData);
       user.value = userData.user;
 
       if (user.value) {
